@@ -20,23 +20,35 @@ const fetchURLs = async (urls) => {
   }
 };
 
-// Formatting the time
+// Formatting the match time
 const timeFormat = new Intl.DateTimeFormat("nl-NL", {
   hour: "numeric",
   minute: "numeric",
   timeZone: "Europe/Amsterdam",
 });
 
-// Formatting the date
+// Formatting the match date
 const dateFormat = new Intl.DateTimeFormat("nl-NL", {
   weekday: "long",
   day: "numeric",
   month: "long",
 });
 
+// Formatting the F1 date
+const dateFormatF1 = new Intl.DateTimeFormat("nl-NL", {
+  weekday: "long",
+  day: "numeric",
+  month: "numeric",
+});
+
 // Capitalizing the first letter of the weekday
 function capitalization(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+// Creating timestamp F1 sessions
+function timestampConcat(str1, str2) {
+  return str1 + "T" + str2;
 }
 
 fetchURLs(urlsToFetch)
@@ -60,24 +72,53 @@ fetchURLs(urlsToFetch)
 
     const raceTime = data[2].race[0].schedule.race.time;
     const raceDate = data[2].race[0].schedule.race.date;
+    const raceTimestamp = Date.parse(timestampConcat(raceDate, raceTime));
+    const raceTimeLocal = timeFormat.format(raceTimestamp);
+    const raceDateFormat = capitalization(dateFormatF1.format(raceTimestamp));
 
     const qualyTime = data[2].race[0].schedule.qualy.time;
     const qualyDate = data[2].race[0].schedule.qualy.date;
+    const qualyTimestamp = Date.parse(timestampConcat(qualyDate, qualyTime));
+    const qualyTimeLocal = timeFormat.format(qualyTimestamp);
+    const qualyDateFormat = capitalization(dateFormatF1.format(qualyTimestamp));
 
     const fp1Time = data[2].race[0].schedule.fp1.time;
     const fp1Date = data[2].race[0].schedule.fp1.date;
+    const fp1Timestamp = Date.parse(timestampConcat(fp1Date, fp1Time));
+    const fp1TimeLocal = timeFormat.format(fp1Timestamp);
+    const fp1DateFormat = capitalization(dateFormatF1.format(fp1Timestamp));
 
     const fp2Time = data[2].race[0].schedule.fp2.time;
     const fp2Date = data[2].race[0].schedule.fp2.date;
+    const fp2Timestamp = Date.parse(timestampConcat(fp2Date, fp2Time));
+    const fp2TimeLocal = timeFormat.format(fp2Timestamp);
+    const fp2DateFormat = capitalization(dateFormatF1.format(fp2Timestamp));
 
     const fp3Time = data[2].race[0].schedule.fp3.time;
     const fp3Date = data[2].race[0].schedule.fp3.date;
+    const fp3Timestamp = Date.parse(timestampConcat(fp3Date, fp3Time));
+    const fp3TimeLocal = timeFormat.format(fp3Timestamp);
+    const fp3DateFormat = capitalization(dateFormatF1.format(fp3Timestamp));
 
     const sprintRaceTime = data[2].race[0].schedule.sprintRace.time;
     const sprintRaceDate = data[2].race[0].schedule.sprintRace.date;
+    const sprintRaceTimestamp = Date.parse(
+      timestampConcat(sprintRaceDate, sprintRaceTime),
+    );
+    const sprintRaceTimeLocal = timeFormat.format(sprintRaceTimestamp);
+    const sprintRaceDateFormat = capitalization(
+      dateFormatF1.format(sprintRaceTimestamp),
+    );
 
     const sprintQualyTime = data[2].race[0].schedule.sprintQualy.time;
     const sprintQualyDate = data[2].race[0].schedule.sprintQualy.date;
+    const sprintQualyTimestamp = Date.parse(
+      timestampConcat(sprintQualyDate, sprintQualyTime),
+    );
+    const sprintQualyTimeLocal = timeFormat.format(sprintQualyTimestamp);
+    const sprintQualyDateFormat = capitalization(
+      dateFormatF1.format(sprintQualyTimestamp),
+    );
   })
   .catch((error) => {
     console.error("Error fetching data:", error);
