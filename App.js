@@ -1,32 +1,25 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { StyleSheet, Text, View, FlatList } from "react-native";
+import "./services/TransformData";
 
-export default function App() {
+const App = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Sporttijden</Text>
-      <Text style={styles.baseText}>
-        Ajax Amsterdam - FC Barcelona - Formula 1
-      </Text>
-      <StatusBar style="auto" />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "hsl(0, 0%, 10%)",
-    alignItems: "center",
+    height: "100%",
     justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "hsl(0, 0%, 10%)",
   },
   title: {
-    color: "white",
+    color: "hsl(0, 0%, 90%)",
     fontSize: 50,
-    fontWeight: "bold",
-  },
-  baseText: {
-    color: "white",
-    marginBlock: 20,
   },
 });
+
+export default App;
