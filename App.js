@@ -1,24 +1,24 @@
-import { StyleSheet, Text, View, FlatList } from "react-native";
-import "./services/TransformData";
+import { StyleSheet, Text, View } from "react-native";
+import FootballFixtures from "./components/FootballFixtures";
+import F1Schedule from "./components/F1Schedule";
 
 const App = () => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Sporttijden</Text>
+    <View style={styles.main}>
+      <FootballFixtures />
+      <F1Schedule />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  main: {
     height: "100%",
+    display: "flex",
+    gap: 50,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "hsl(0, 0%, 10%)",
-  },
-  title: {
-    color: "hsl(0, 0%, 90%)",
-    fontSize: 50,
+    backgroundColor: "hsl(0, 0%, 90%)",
   },
 });
 
