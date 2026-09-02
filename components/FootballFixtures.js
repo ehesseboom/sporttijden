@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     fontWeight: 700,
     color: "hsl(10, 0%, 20%)",
     display: "flex",
-    alignSelf: "flex-end",
+    // alignSelf: "flex-end",
   },
   match: {
     fontWeight: 700,
