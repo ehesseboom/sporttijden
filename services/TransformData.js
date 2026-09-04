@@ -1,30 +1,31 @@
 import FetchURLs from "./FetchData.js";
 
 const ExtractTimestamp = async () => {
-  // Formatting the match time
+  // Formatting Football time
   const timeFormat = new Intl.DateTimeFormat("nl-NL", {
     hour: "numeric",
     minute: "numeric",
     timeZone: "Europe/Amsterdam",
   });
 
-  // Formatting the match date
+  // Formatting Football date
   const dateFormat = new Intl.DateTimeFormat("nl-NL", {
-    weekday: "long",
+    weekday: "short",
     day: "numeric",
-    month: "long",
+    month: "short",
   });
 
-  // Formatting the F1 date
+  // Formatting F1 date
   const dateFormatF1 = new Intl.DateTimeFormat("nl-NL", {
     weekday: "long",
     day: "numeric",
     month: "numeric",
   });
 
-  // Capitalizing the first letter of the weekday
+  // Capitalizing date
   function capitalization(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
+    return str.toUpperCase().slice(0, -1);
+    // slicing the dot at the end
   }
 
   function formatTime(formatter, timestamp) {
@@ -40,7 +41,7 @@ const ExtractTimestamp = async () => {
   try {
     const data = await FetchURLs();
 
-    // Getting the F1 timestamp
+    // Formula 1 timestamp
     function timestampF1(session) {
       const time = data[2].race[0].schedule[session].time;
       const date = data[2].race[0].schedule[session].date;
@@ -50,23 +51,29 @@ const ExtractTimestamp = async () => {
       return Date.parse(date + "T" + time);
     }
 
-    // Getting the football timestamp
+    // Football timestamp
     function timestampFootball(dataIndex) {
       return Date.parse(data[dataIndex].events[0].strTimestamp + "Z");
     }
 
     const cleanData = {
       ajax: {
-        competition: data[0].events[0].strLeague,
-        match: data[0].events[0].strEvent,
+        homeBadge: data[0].events[0].strHomeTeamBadge,
+        awayBadge: data[0].events[0].strAwayTeamBadge,
+        homeTeam: data[0].events[0].strHomeTeam,
+        awayTeam: data[0].events[0].strAwayTeam,
         time: timeFormat.format(timestampFootball(0)),
         date: capitalization(dateFormat.format(timestampFootball(0))),
+        timeStamp: timestampFootball(0),
       },
       barcelona: {
-        competition: data[1].events[0].strLeague,
-        match: data[1].events[0].strEvent,
+        homeBadge: data[1].events[0].strHomeTeamBadge,
+        awayBadge: data[1].events[0].strAwayTeamBadge,
+        homeTeam: data[1].events[0].strHomeTeam,
+        awayTeam: data[1].events[0].strAwayTeam,
         time: timeFormat.format(timestampFootball(1)),
         date: capitalization(dateFormat.format(timestampFootball(1))),
+        timeStamp: timestampFootball(1),
       },
       formula1: {
         grandPrix: data[2].race[0].raceName,
