@@ -1,4 +1,4 @@
-import { ActivityIndicator, View, StyleSheet, Text } from "react-native";
+import { ActivityIndicator, View, StyleSheet } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { useState, useEffect } from "react";
 import ExtractTimestamp from "./services/TransformData";
@@ -40,8 +40,11 @@ const App = () => {
         </View>
       ) : (
         <SafeAreaView style={styles.container}>
-          <FootballFixtures data={cleanData} />
-          <F1Schedule data={cleanData} />
+          <View style={styles.centerGroup}>
+            <FootballFixtures data={cleanData} />
+            <F1Schedule data={cleanData} />
+          </View>
+
           <Footer />
         </SafeAreaView>
       )}
@@ -51,21 +54,21 @@ const App = () => {
 
 const styles = StyleSheet.create({
   main: {
+    flex: 1,
     backgroundColor: "hsl(0, 0%, 5%)",
     padding: 15,
-    display: "flex",
-    justifyContent: "center",
   },
   activityIndicator: {
-    height: "100%",
-    weight: "100%",
-    display: "flex",
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
   container: {
-    height: "100%",
-    display: "flex",
+    flex: 1,
+  },
+  centerGroup: {
+    flex: 1,
+    justifyContent: "center",
     gap: 10,
   },
 });
