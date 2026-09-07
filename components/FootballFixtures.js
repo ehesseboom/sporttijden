@@ -1,21 +1,6 @@
 import { View, Text, Image, StyleSheet } from "react-native";
-import { useFonts, Figtree_400Regular } from "@expo-google-fonts/figtree";
-import {
-  SofiaSans_400Regular,
-  SofiaSans_700Bold,
-} from "@expo-google-fonts/sofia-sans";
 
 const FootballFixtures = ({ data }) => {
-  let [fontsLoaded] = useFonts({
-    Figtree_400Regular,
-    SofiaSans_400Regular,
-    SofiaSans_700Bold,
-  });
-
-  if (!fontsLoaded) {
-    return null;
-  }
-
   const ajaxCard = (
     <View>
       <View style={styles.card}>
@@ -70,22 +55,20 @@ const FootballFixtures = ({ data }) => {
     </View>
   );
 
-  // Timestamps
-  const timeStampAjax = data.ajax.timeStamp;
-  const timeStampBarcelona = data.barcelona.timeStamp;
+  // timestamps
+  const timestampAjax = data.ajax.timestamp;
+  const timestampBarcelona = data.barcelona.timestamp;
 
   // Comparison timestamps
   const firstCard =
-    timeStampAjax < timeStampBarcelona ? ajaxCard : barcelonaCard;
+    timestampAjax < timestampBarcelona ? ajaxCard : barcelonaCard;
   const secondCard =
-    timeStampAjax < timeStampBarcelona ? barcelonaCard : ajaxCard;
+    timestampAjax < timestampBarcelona ? barcelonaCard : ajaxCard;
 
   return (
-    <View>
-      <View style={styles.container}>
-        {firstCard}
-        {secondCard}
-      </View>
+    <View style={styles.container}>
+      {firstCard}
+      {secondCard}
     </View>
   );
 };
@@ -112,6 +95,7 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    minWidth: 70,
   },
   cardRight: {
     display: "flex",
@@ -126,6 +110,7 @@ const styles = StyleSheet.create({
   text: {
     color: "hsl(0, 0%, 90%)",
     fontFamily: "SofiaSans_700Bold",
+    fontSize: 16,
   },
   sprite: {
     height: 20,
