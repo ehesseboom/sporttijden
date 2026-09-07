@@ -1,8 +1,9 @@
 const FetchURLs = async () => {
   const urlsToFetch = [
-    `https://www.thesportsdb.com/api/v1/json/123/eventsnext.php?id=133772`,
-    `https://www.thesportsdb.com/api/v1/json/123/eventsnext.php?id=133739`,
-    `https://f1api.dev/api/current/next`,
+    "https://www.thesportsdb.com/api/v1/json/123/eventsnext.php?id=133772",
+    "https://www.thesportsdb.com/api/v1/json/123/eventsnext.php?id=133739",
+    "http://api.jolpi.ca/ergast/f1/current/next.json",
+    // "https://f1api.dev/api/current/next",
   ];
 
   try {

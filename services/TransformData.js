@@ -1,25 +1,18 @@
 import FetchURLs from "./FetchData.js";
 
 const ExtractTimestamp = async () => {
-  // Formatting Football time
+  // Formatting time
   const timeFormat = new Intl.DateTimeFormat("nl-NL", {
     hour: "numeric",
     minute: "numeric",
     timeZone: "Europe/Amsterdam",
   });
 
-  // Formatting Football date
+  // Formatting date
   const dateFormat = new Intl.DateTimeFormat("nl-NL", {
     weekday: "short",
     day: "numeric",
     month: "short",
-  });
-
-  // Formatting F1 date
-  const dateFormatF1 = new Intl.DateTimeFormat("nl-NL", {
-    weekday: "long",
-    day: "numeric",
-    month: "numeric",
   });
 
   // Capitalizing date
@@ -28,34 +21,30 @@ const ExtractTimestamp = async () => {
     // slicing the dot at the end
   }
 
-  function formatTime(formatter, timestamp) {
-    return timestamp === null ? null : formatter.format(timestamp);
-  }
-
-  function formatDate(formatter, timestamp) {
-    return timestamp === null
-      ? null
-      : capitalization(formatter.format(timestamp));
-  }
-
   try {
     const data = await FetchURLs();
-
-    // Formula 1 timestamp
-    function timestampF1(session) {
-      const time = data[2].race[0].schedule[session].time;
-      const date = data[2].race[0].schedule[session].date;
-      if (!date || !time) {
-        return null;
-      }
-      return Date.parse(date + "T" + time);
-    }
 
     // Football timestamp
     function timestampFootball(dataIndex) {
       return Date.parse(data[dataIndex].events[0].strTimestamp + "Z");
     }
 
+    // Formula 1 timestamp (exluding race)
+    function timestampF1(dataIndex, session) {
+      const sessionData = data[dataIndex].MRData.RaceTable.Races[0][session];
+      if (!sessionData) return null;
+      const date = sessionData.date;
+      const time = sessionData.time;
+      if (!date || !time) return null;
+      return Date.parse(date + "T" + time);
+    }
+
+    // Formula 1 timestamp race
+    const raceDate = data[2].MRData.RaceTable.Races[0].date;
+    const raceTime = data[2].MRData.RaceTable.Races[0].time;
+    const raceTimestamp = Date.parse(raceDate + "T" + raceTime);
+
+    // Displayed data
     const cleanData = {
       ajax: {
         homeBadge: data[0].events[0].strHomeTeamBadge,
@@ -64,7 +53,7 @@ const ExtractTimestamp = async () => {
         awayTeam: data[0].events[0].strAwayTeam,
         time: timeFormat.format(timestampFootball(0)),
         date: capitalization(dateFormat.format(timestampFootball(0))),
-        timeStamp: timestampFootball(0),
+        timestamp: timestampFootball(0),
       },
       barcelona: {
         homeBadge: data[1].events[0].strHomeTeamBadge,
@@ -73,44 +62,54 @@ const ExtractTimestamp = async () => {
         awayTeam: data[1].events[0].strAwayTeam,
         time: timeFormat.format(timestampFootball(1)),
         date: capitalization(dateFormat.format(timestampFootball(1))),
-        timeStamp: timestampFootball(1),
+        timestamp: timestampFootball(1),
       },
       formula1: {
-        grandPrix: data[2].race[0].raceName,
-        race: {
-          session: "Race",
-          time: formatTime(timeFormat, timestampF1("race")),
-          date: formatDate(dateFormatF1, timestampF1("race")),
-        },
-        qualy: {
-          session: "Qualification",
-          time: formatTime(timeFormat, timestampF1("qualy")),
-          date: formatDate(dateFormatF1, timestampF1("qualy")),
-        },
+        // grandPrixOfficialName: data[3].race[0].raceName,
+        grandPrix: data[2].MRData.RaceTable.Races[0].raceName,
+        circuit: data[2].MRData.RaceTable.Races[0].Circuit.circuitName,
         fp1: {
-          session: "FP1",
-          time: formatTime(timeFormat, timestampF1("fp1")),
-          date: formatDate(dateFormatF1, timestampF1("fp1")),
+          sessionName: "Free Practice 1",
+          date: capitalization(
+            dateFormat.format(timestampF1(2, "FirstPractice")),
+          ),
+          time: timeFormat.format(timestampF1(2, "FirstPractice")),
         },
         fp2: {
-          session: "FP2",
-          time: formatTime(timeFormat, timestampF1("fp2")),
-          date: formatDate(dateFormatF1, timestampF1("fp2")),
+          sessionName: "Free Practice 2",
+          date: capitalization(
+            dateFormat.format(timestampF1(2, "SecondPractice")),
+          ),
+          time: timeFormat.format(timestampF1(2, "SecondPractice")),
         },
         fp3: {
-          session: "FP3",
-          time: formatTime(timeFormat, timestampF1("fp3")),
-          date: formatDate(dateFormatF1, timestampF1("fp3")),
-        },
-        sprintRace: {
-          session: "Sprint Race",
-          time: formatTime(timeFormat, timestampF1("sprintRace")),
-          date: formatDate(dateFormatF1, timestampF1("sprintRace")),
+          sessionName: "Free Practice 3",
+          date: capitalization(
+            dateFormat.format(timestampF1(2, "ThirdPractice")),
+          ),
+          time: timeFormat.format(timestampF1(2, "ThirdPractice")),
         },
         sprintQualy: {
-          session: "Sprint Qualification",
-          time: formatTime(timeFormat, timestampF1("sprintQualy")),
-          date: formatDate(dateFormatF1, timestampF1("sprintQualy")),
+          sessionName: "Sprint Qualification",
+          date: capitalization(
+            dateFormat.format(timestampF1(2, "SprintQualifying")),
+          ),
+          time: timeFormat.format(timestampF1(2, "SprintQualifying")),
+        },
+        sprintRace: {
+          sessionName: "Sprint",
+          date: capitalization(dateFormat.format(timestampF1(2, "Sprint"))),
+          time: timeFormat.format(timestampF1(2, "Sprint")),
+        },
+        qualy: {
+          sessionName: "Qualification",
+          date: capitalization(dateFormat.format(timestampF1(2, "Qualifying"))),
+          time: timeFormat.format(timestampF1(2, "Qualifying")),
+        },
+        race: {
+          sessionName: "Race",
+          date: capitalization(dateFormat.format(raceTimestamp)),
+          time: timeFormat.format(raceTimestamp),
         },
       },
     };
