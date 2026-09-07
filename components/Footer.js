@@ -5,7 +5,7 @@ const Footer = () => {
   const year = date.getFullYear();
 
   const footer = (
-    <Text style={styles.footer}>Sporttijden © {year} Ennio Esseboom</Text>
+    <Text style={styles.text}>Sporttijden © {year} Ennio Esseboom</Text>
   );
 
   return <View style={styles.container}>{footer}</View>;
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     marginTop: "auto",
     alignItems: "center",
   },
-  footer: {
+  text: {
     color: "hsl(0, 0%, 15%)",
     fontFamily: "SofiaSans_700Bold",
     fontSize: 12,

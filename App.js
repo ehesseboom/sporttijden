@@ -1,5 +1,5 @@
-import { ActivityIndicator, View, StyleSheet } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { ActivityIndicator, View, StyleSheet } from "react-native";
 import { useState, useEffect } from "react";
 import ExtractTimestamp from "./services/TransformData";
 import FootballFixtures from "./components/FootballFixtures";

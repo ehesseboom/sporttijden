@@ -1,16 +1,18 @@
 import { View, Text, StyleSheet } from "react-native";
 
 const F1Schedule = ({ data }) => {
-  const cardTitle = (
+  const titleCard = (
     <View style={styles.title}>
-      <Text style={[styles.text, styles.grandPrix]}>
+      <Text style={[styles.text, styles.grandPrixName]}>
         {data.formula1.grandPrix}
       </Text>
-      <Text style={[styles.text, styles.circuit]}>{data.formula1.circuit}</Text>
+      <Text style={[styles.text, styles.circuitName]}>
+        {data.formula1.circuit}
+      </Text>
     </View>
   );
 
-  const cardFp1 = (
+  const fp1Card = (
     <View style={styles.card}>
       <View style={styles.cardLeft}>
         <Text style={[styles.text, styles.date]}>{data.formula1.fp1.date}</Text>
@@ -22,7 +24,7 @@ const F1Schedule = ({ data }) => {
     </View>
   );
 
-  const cardFp2 = (
+  const fp2Card = (
     <View style={styles.card}>
       <View style={styles.cardLeft}>
         <Text style={[styles.text, styles.date]}>{data.formula1.fp2.date}</Text>
@@ -34,7 +36,7 @@ const F1Schedule = ({ data }) => {
     </View>
   );
 
-  const cardFp3 = (
+  const fp3Card = (
     <View style={styles.card}>
       <View style={styles.cardLeft}>
         <Text style={[styles.text, styles.date]}>{data.formula1.fp3.date}</Text>
@@ -46,7 +48,7 @@ const F1Schedule = ({ data }) => {
     </View>
   );
 
-  const cardSprintQualy = (
+  const sprintQualyCard = (
     <View style={styles.card}>
       <View style={styles.cardLeft}>
         <Text style={[styles.text, styles.date]}>
@@ -60,7 +62,7 @@ const F1Schedule = ({ data }) => {
     </View>
   );
 
-  const cardSprint = (
+  const sprintCard = (
     <View style={styles.card}>
       <View style={styles.cardLeft}>
         <Text style={[styles.text, styles.date]}>
@@ -74,7 +76,7 @@ const F1Schedule = ({ data }) => {
     </View>
   );
 
-  const cardQualy = (
+  const qualyCard = (
     <View style={styles.card}>
       <View style={styles.cardLeft}>
         <Text style={[styles.text, styles.date]}>
@@ -88,7 +90,7 @@ const F1Schedule = ({ data }) => {
     </View>
   );
 
-  const cardRace = (
+  const raceCard = (
     <View style={styles.card}>
       <View style={styles.cardLeft}>
         <Text style={[styles.text, styles.date]}>
@@ -102,18 +104,18 @@ const F1Schedule = ({ data }) => {
     </View>
   );
 
-  const session2 = data.formula1.fp2 === null ? cardSprintQualy : cardFp2;
-  const session3 = data.formula1.fp3 === null ? cardSprint : cardFp3;
+  const session2 = data.formula1.fp2 === null ? sprintQualyCard : fp2Card;
+  const session3 = data.formula1.fp3 === null ? sprintCard : fp3Card;
 
   return (
     <View style={styles.container}>
-      {cardTitle}
+      {titleCard}
       <View style={styles.schedule}>
-        {cardFp1}
+        {fp1Card}
         {session2}
         {session3}
-        {cardQualy}
-        {cardRace}
+        {qualyCard}
+        {raceCard}
       </View>
     </View>
   );
@@ -133,10 +135,10 @@ const styles = StyleSheet.create({
   title: {
     marginBottom: 25,
   },
-  grandPrix: {
+  grandPrixName: {
     fontSize: 20,
   },
-  circuit: {
+  circuitName: {
     color: "hsl(0, 0%, 45%)",
   },
   schedule: {
@@ -164,8 +166,8 @@ const styles = StyleSheet.create({
     gap: 7,
   },
   date: {
-    fontSize: 12,
     color: "hsl(0, 0%, 45%)",
+    fontSize: 12,
   },
 });
 
