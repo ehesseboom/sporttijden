@@ -4,22 +4,22 @@
     "slug": "Sporttijden",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/ios-icon-dark.png",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "newArchEnabled": true,
+    // "newArchEnabled": true,
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/ios-icon-dark.png",
-        "backgroundColor": "#0d960b"
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#1a1a1a"
       },
-      "edgeToEdgeEnabled": true,
+      // "edgeToEdgeEnabled": true,
       "package": "com.anonymous.Sporttijden"
     },
     "web": {
-      "favicon": "./assets/ios-icon-dark.png"
+      "favicon": "./assets/icon.png"
     },
     "plugins": [
       ["expo-font"],
@@ -28,10 +28,15 @@
         "expo-splash-screen",
         {
           "backgroundColor": "#1a1a1a",
-          "image": "./assets/ios-icon-dark.png",
+          "image": "./assets/icon.png",
           "resizeMode": "contain"
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "127ce514-1f66-4532-b9ff-ef14ae16cfb5"
+      }
+    }
   }
 }
