@@ -1,5 +1,5 @@
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import { ActivityIndicator, View, StyleSheet } from "react-native";
+import { ActivityIndicator, View, StyleSheet, Text } from "react-native";
 import { useState, useEffect } from "react";
 import ExtractTimestamp from "./services/TransformData";
 import FootballFixtures from "./components/FootballFixtures";
@@ -21,9 +21,20 @@ const App = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const data = await ExtractTimestamp();
-      setCleanData(data);
-      setIsLoading(false);
+      try {
+        const data = await ExtractTimestamp();
+
+        if (!data) {
+          console.error("Data is undefined!");
+          return;
+        }
+
+        console.log(data);
+        setCleanData(data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error(error);
+      }
     };
     getData();
   }, []);
