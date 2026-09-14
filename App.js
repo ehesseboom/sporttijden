@@ -29,7 +29,7 @@ const App = () => {
           return;
         }
 
-        console.log(data);
+        // console.log(data);
         setCleanData(data);
         setIsLoading(false);
       } catch (error) {

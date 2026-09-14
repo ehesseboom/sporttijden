@@ -85,7 +85,9 @@ const F1Schedule = ({ data }) => {
         <Text style={styles.text}>{data.formula1.qualy.time}</Text>
       </View>
       <View style={styles.cardRight}>
-        <Text style={styles.text}>{data.formula1.qualy.sessionName}</Text>
+        <Text style={[styles.text, styles.qualyText]}>
+          {data.formula1.qualy.sessionName}
+        </Text>
       </View>
     </View>
   );
@@ -99,7 +101,9 @@ const F1Schedule = ({ data }) => {
         <Text style={styles.text}>{data.formula1.race.time}</Text>
       </View>
       <View style={styles.cardRight}>
-        <Text style={styles.text}>{data.formula1.race.sessionName}</Text>
+        <Text style={[styles.text, styles.raceText]}>
+          {data.formula1.race.sessionName}
+        </Text>
       </View>
     </View>
   );
@@ -159,7 +163,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     gap: 3,
-    minWidth: 70,
+    // minWidth: 70,
+    width: 80,
   },
   cardRight: {
     display: "flex",
@@ -168,6 +173,12 @@ const styles = StyleSheet.create({
   date: {
     color: "hsl(0, 0%, 45%)",
     fontSize: 12,
+  },
+  qualyText: {
+    // color: "hsl(210, 100%, 69%)",
+  },
+  raceText: {
+    // color: "hsl(48, 100%, 65%)",
   },
 });
 
