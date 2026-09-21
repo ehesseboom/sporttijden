@@ -3,7 +3,7 @@
 Personal mobile app built with React Native and Expo.
 
 ## Features
-- Upcoming fixture for Ajax Amsterdam and FC Barcelona
+- Upcoming football fixtures for Ajax Amsterdam, FC Barcelona and The Netherlands national team
 - F1 Grand Prix session schedule with local times (CET/CEST)
 
 ## Built with
