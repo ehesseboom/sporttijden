@@ -163,8 +163,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     gap: 3,
-    // minWidth: 70,
-    width: 80,
+    // maxWidth: 80,
+    width: 72,
   },
   cardRight: {
     display: "flex",
