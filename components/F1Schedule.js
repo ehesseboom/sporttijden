@@ -108,8 +108,9 @@ const F1Schedule = ({ data }) => {
     </View>
   );
 
-  const session2 = data.formula1.fp2 === null ? sprintQualyCard : fp2Card;
-  const session3 = data.formula1.fp3 === null ? sprintCard : fp3Card;
+  const session2 =
+    data.formula1.fp2.date === "DO 1 JAN" ? sprintQualyCard : fp2Card;
+  const session3 = data.formula1.fp3.date === "DO 1 JAN" ? sprintCard : fp3Card;
 
   return (
     <View style={styles.container}>
