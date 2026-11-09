@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 3,
     // maxWidth: 80,
-    width: 72,
+    width: 75,
   },
   cardRight: {
     display: "flex",

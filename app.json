@@ -28,7 +28,8 @@
           "image": "./assets/icon.png",
           "resizeMode": "contain"
         }
-      ]
+      ],
+      "expo-font"
     ],
     "extra": {
       "eas": {
